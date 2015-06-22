@@ -1,11 +1,11 @@
 # Class: rjil::jiocloud::consul
 #
-class rjil::jiocloud::consul($config_hash) {
+class rjil::jiocloud::consul($config_hash,$content='server=/consul/127.0.0.1#8600') {
   include dnsmasq
 
-  dnsmasq::conf { 'consul':
+  dnsmasq::conf{ 'consul':
     ensure  => present,
-    content => 'server=/consul/127.0.0.1#8600',
+    content => $content,
   }
 
   class { '::consul':

@@ -81,4 +81,9 @@ class rjil::jiocloud (
     setting => 'manifestdir',
   }
 
+ #Adding override configuration for dnsmasq on all compute nodes to
+ #ensure dnsmasq does not pick Cnames from /etc/hosts. This will enable
+ #any prod VM's to resolve api.jiocloudservices.com to public IP
+ include rjil::jiocloud::dnsrewrite
+
 }

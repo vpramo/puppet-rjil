@@ -11,3 +11,5 @@ contrail::vrouter::vrf: 'default-domain:services:public:public'
 # enabled once this is fixed.
 ##
 #rjil::test::contrail_vrouter::vgw_enabled: "%{hiera('contrail::vrouter::vgw_enabled')}"
+#Adding dnsmasq override for GCP node
+rjil::jiocloud::dnsrewrite::content:'no-hosts'

@@ -12,4 +12,8 @@ contrail::vrouter::vrf: 'default-domain:services:public:public'
 ##
 #rjil::test::contrail_vrouter::vgw_enabled: "%{hiera('contrail::vrouter::vgw_enabled')}"
 #Adding dnsmasq override for GCP node
+<<<<<<< HEAD
 rjil::jiocloud::dnsrewrite::content: 'no-hosts'
+=======
+rjil::jiocloud::dnsrewrite::content:'no-hosts'
+>>>>>>> 60268b5... Dnsmasq override to ensure compute nodes do not read /etc/hosts

@@ -1,0 +1,10 @@
+class rjil::jiocloud::dnsrewrite {
+  include dnsmasq
+
+  dnsmasq::conf { 'host_override':
+    ensure  => present,
+    content => 'no-hosts',
+  }
+
+
+}

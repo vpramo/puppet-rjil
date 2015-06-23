@@ -1,2 +1,2 @@
-#Adding dnsmasq override for GCP node
-rjil::jiocloud::dnsrewrite::content:'no-hosts'
+#Adding dnsmasq override for CP node
+rjil::jiocloud::dnsrewrite::content: 'no-hosts'

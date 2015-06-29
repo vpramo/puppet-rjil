@@ -37,3 +37,8 @@ rjil::neutron::contrail::fip_pools:
     tenants: ['tempest','mgmt_tenant','internal_tenant']
 
 contrail::vrouter::vgw_subnets: ['100.1.0.0/24']
+contrail::edge_routers:
+  router1:
+    host_address:'1.1.1.1'
+  router2:
+    host_address:'1.1.1.2'

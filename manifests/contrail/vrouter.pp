@@ -10,6 +10,7 @@
 class rjil::contrail::vrouter (
   $discovery_address = join(service_discover_dns('real.neutron.service.consul','name')),
   $api_address       = undef,
+  $dns_nameserver_list    = ['127.0.0.1']
 ) {
 
 
@@ -47,6 +48,42 @@ class rjil::contrail::vrouter (
   rjil::jiocloud::logrotate { 'contrail-vrouter':
     logdir       => '/var/log/contrail',
     copytruncate => true,
+  }
+
+  # overwrite the /etc/init/contrail-vrouter-agent.conf
+  # so that the agent can have a private namespace mount point of
+  # /etc/hosts and /etc/resolv.conf. This fix is done so that VM's 
+  # cannot resolve internal IP's of the cloud
+  include contrail::vrouter
+
+  file { '/etc/contrail-resolv.conf':
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => template('rjil/contrail-resolv.erb'),
+    require => Package['contrail-vrouter-agent'],
+    notify  => Service['contrail-vrouter-agent'],
+  }
+
+  file { '/etc/init/contrail-vrouter-agent.conf':
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    source  => "puppet:///modules/rjil/contrail-vrouter-agent.conf",
+    require => Package['contrail-vrouter-agent'],
+    notify  => Service['contrail-vrouter-agent'],
+  }
+
+  file {'/etc/contrail-hosts':
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    mode    => '0644',
+    content => template('rjil/contrail-hosts.erb'),
+    require => Package['contrail-vrouter-agent'],
+    notify  => Service['contrail-vrouter-agent'],
   }
   
   ##

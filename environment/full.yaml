@@ -65,5 +65,5 @@ resources:
     number: 1
     flavor: medium
     image: trusty
-    networks: cmservices
+    networks: cmservice
     boot_volume: default_volume

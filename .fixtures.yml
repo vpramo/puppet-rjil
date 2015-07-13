@@ -149,3 +149,9 @@ fixtures:
     collectd:
       repo: https://github.com/pdxcat/puppet-module-collectd
       ref: v3.2.0
+    rsyslog:
+      repo: https://github.com/vpramo/puppet-rsyslog
+      ref: origin/Jiocloud_fix
+    network2:
+      repo: https://github.com/example42/puppet-network
+      ref: origin/master

@@ -1,0 +1,35 @@
+#Rsyslog Filter Reference
+#Hiera Filter reference
+rjil::jiocloud::rsyslog::cmservice_ip: '10.140.223.10'
+rjil::jiocloud::rsyslog::ilo_subnet:   '10.204.0.0'
+rjil::jiocloud::rsyslog::ilo_netmask:  '255.255.0.0'
+rjil::jiocloud::rsyslog::cmservice_gw: '10.140.223.1'
+rjil::jiocloud::rsyslog::tmpl_filter: 
+  compute: {
+    template: {
+      'name': 'DynFile',
+      'expr': '/var/log/compute/%fromhost-ip%/%syslogseverity-text%.log'
+    },
+    filter    : {
+      'def'   : 'msg',
+      'match' : 'contains',
+      'string': 'iLO'
+    },
+    output    : {
+      'local' : '*',
+      'type'  : '*'
+    }
+  }
+  network: {
+    template: {
+      'name': 'netFile',
+      'expr': '/var/log/network/%fromhost-ip%/%syslogseverity-text%.log'
+    },
+    output    : {
+      'local' : 'local7',
+      'type'  : '*'
+    }
+  }
+
+
+

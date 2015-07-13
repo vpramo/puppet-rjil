@@ -8,5 +8,8 @@ flavor:
 networks:
    default:
      - 7270b05c-0086-44d3-994f-4099ef6fc4bf
+   cmservice:
+     - 8b5d369d-9905-4d20-ae9e-0a78c0c0c65a
+     - 7270b05c-0086-44d3-994f-4099ef6fc4bf
 boot_volume:
   default_volume: 50

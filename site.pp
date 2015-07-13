@@ -196,3 +196,9 @@ node /^httpproxy\d+/ {
     content => 'server=8.8.8.8',
   }
 }
+
+node /^syslog\d+/ {
+  include rjil::base
+  include rjil::jiocloud::rsyslog
+}
+

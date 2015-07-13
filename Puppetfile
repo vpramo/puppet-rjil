@@ -25,7 +25,7 @@ mod 'saz/sudo',
   :git => "#{base_url}/saz/puppet-sudo",
   :ref => '62b93dacbf49ac82022e52ef7046c467f1c21cf5'
 
-mod 'fsalum/redis',
+mod 'fsalum/redis',work
   :git => "#{base_url}/fsalum/puppet-redis",
   :ref => '0.0.12'
 
@@ -207,3 +207,12 @@ mod 'community/archive',
 mod 'pdxcat/collectd',
   :git => "#{base_url}/pdxcat/puppet-module-collectd",
   :ref => 'v3.2.0'
+
+mod 'saz/rsyslog',
+  :git => "#{base_url}/vpramo/puppet-rsyslog",
+  :ref => 'origin/Jiocloud_fix'
+
+mod 'example42/network2',
+  :git => "#{base_url}/example42/puppet-network",
+  :ref => 'origin/master'
+

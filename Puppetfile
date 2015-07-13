@@ -25,7 +25,7 @@ mod 'saz/sudo',
   :git => "#{base_url}/saz/puppet-sudo",
   :ref => '62b93dacbf49ac82022e52ef7046c467f1c21cf5'
 
-mod 'fsalum/redis'
+mod 'fsalum/redis',
   :git => "#{base_url}/fsalum/puppet-redis",
   :ref => '0.0.12'
 

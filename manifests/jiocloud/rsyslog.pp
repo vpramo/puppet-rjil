@@ -28,12 +28,10 @@ class rjil::jiocloud::rsyslog(
       ipaddress   => [$ilo_subnet],
       gateway     => [$cmservice_gw],
       netmask     => [$ilo_netmask],
-      require     => Network2::interface[$conf_interface]
     }
   }
   file{'/var/log/compute':
     ensure  => 'directory',
-    require => Network2::route[$conf_interface]
   }
 
   file{'/var/log/network':

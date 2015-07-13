@@ -10,7 +10,7 @@ class rjil::jiocloud::rsyslog(
   $ilo_subnet   = undef,
   $ilo_netmask  = undef,
   $cmservice_gw = undef,
- )
+)
 {
   include ::network2
   if $ip_addr{

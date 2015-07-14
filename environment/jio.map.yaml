@@ -9,7 +9,7 @@ networks:
    default:
      - 7270b05c-0086-44d3-994f-4099ef6fc4bf
    cmservice:
-     - ad4825c0-05ac-4a93-b9a2-8b1a472ecefe
      - 7270b05c-0086-44d3-994f-4099ef6fc4bf
+     - ad4825c0-05ac-4a93-b9a2-8b1a472ecefe
 boot_volume:
   default_volume: 50

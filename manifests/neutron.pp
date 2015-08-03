@@ -12,6 +12,7 @@ class rjil::neutron (
   $ssl                  = false,
   $rewrites             = undef,
   $headers              = undef,
+  $srv_tag                = 'real',
 ) {
 
   ##
@@ -102,7 +103,7 @@ class rjil::neutron (
   }
 
   rjil::jiocloud::consul::service { 'neutron':
-    tags          => ['real'],
+    tags          => [$srv_tag],
     port          => $public_port,
   }
 

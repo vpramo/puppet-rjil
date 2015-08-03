@@ -1,0 +1,3 @@
+### Neutron tag for registering consul service###
+## Acceptable option real/backup ####
+rjil::neutron::srv_tag: 'backup'

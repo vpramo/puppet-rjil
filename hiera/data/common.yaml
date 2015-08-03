@@ -676,6 +676,13 @@ contrail::config::quota_subnet: 20
 contrail::config::quota_virtual_machine_interface: 100
 contrail::config::quota_virtual_network: 5
 
+#### Contrail Daemon Control Configs #####
+## Options are upstart/supervisor ###
+
+contrail::contrail_config_daemon: 'upstart'
+contrail::contrail_control_daemon: 'upstart'
+contrail::vrouter::contrail_vrouter_daemon: 'upstart'
+
 ###########################################
 ############ Ceph Configuration ###########
 ###########################################

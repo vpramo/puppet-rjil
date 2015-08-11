@@ -80,6 +80,15 @@ node /^ct\d+/ {
   include rjil::neutron::contrail
 }
 
+##
+## Setup Contrail Analytics Nodes
+node /^ca\d+/ {
+  include rjil::base
+  include rjil::redis
+  include rjil::cassandra
+  include rjil::contrail::analytics
+}
+
 
 ##
 ## oc is openstack controller node which will have all

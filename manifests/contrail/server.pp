@@ -1,9 +1,8 @@
 ###
 ## Class: rjil::contrail
 ###
-class rjil::contrail::server (
-  $enable_analytics = true,
-) {
+class rjil::contrail::server 
+ {
 
   ##
   # Added tests
@@ -14,9 +13,9 @@ class rjil::contrail::server (
                       'contrail-webui-webserver.sh','contrail-webui-jobserver.sh']
   rjil::test {$contrail_tests:}
 
-  if $enable_analytics {
-    rjil::test {'contrail-analytics.sh':}
-  }
+#  if $enable_analytics {
+#    rjil::test {'contrail-analytics.sh':}
+#  }
 
   include ::contrail
 
@@ -57,7 +56,6 @@ class rjil::contrail::server (
   ##
   $contrail_logrotate_delete = ['contrail-config',
                                 'contrail-config-openstack',
-                                'contrail-analytics',
                                 'ifmap-server',
                                 ]
   rjil::jiocloud::logrotate { $contrail_logrotate_delete:

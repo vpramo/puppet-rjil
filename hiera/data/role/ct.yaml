@@ -1,0 +1,3 @@
+# Disabling Contrail Analytics on CT nodes
+# A new node will be used for configuring contrail analytics
+contrail::enable_analytics: false

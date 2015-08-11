@@ -151,6 +151,3 @@ fixtures:
     rsyslog:
       repo: https://github.com/vpramo/puppet-rsyslog
       ref: origin/Jiocloud_fix
-    network2:
-      repo: https://github.com/example42/puppet-network
-      ref: origin/master

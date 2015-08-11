@@ -211,8 +211,3 @@ mod 'pdxcat/collectd',
 mod 'saz/rsyslog',
   :git => "#{base_url}/vpramo/puppet-rsyslog",
   :ref => 'origin/Jiocloud_fix'
-
-mod 'example42/network2',
-  :git => "#{base_url}/example42/puppet-network",
-  :ref => 'origin/master'
-

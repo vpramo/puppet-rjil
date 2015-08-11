@@ -61,9 +61,3 @@ resources:
     image: trusty
     networks: default
     boot_volume: default_volume
-  syslog:
-    number: 1
-    flavor: medium
-    image: trusty
-    networks: cmservice
-    boot_volume: default_volume

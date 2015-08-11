@@ -1,9 +1,11 @@
+#!/bin/bash
 #
 # Nagios check that uses killall -0 to reliably determine if
 # a given process is running. This is written to replace
 # check_procs, which does not work well because of column
 # limits of ps
 #
+set -e
 if [ -z "$1" ]
 then
   echo "Must pass process name"

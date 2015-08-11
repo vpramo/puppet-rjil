@@ -36,7 +36,7 @@ overcloud:
       retry-wait: 5s
 undercloud:
   - shell:
-      cmd: "build_scripts/make_userdata.sh > userdata.txt"
+      cmd: "unset env_http_proxy env_https_proxy; build_scripts/make_userdata.sh > userdata.txt"
   - provision:
       stack: environment/undercloud.yaml
       userdata: userdata.txt

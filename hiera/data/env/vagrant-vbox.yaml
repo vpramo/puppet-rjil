@@ -1,7 +1,7 @@
-public_address: "%{ipaddress_eth1}"
-public_interface: eth1
-private_address: "%{ipaddress_vhost0_or_eth1}"
-private_interface: eth1
+public_address: "%{ipaddress_192_168_100_0_24}"
+public_interface: "%{interface_192_168_100_0_24}"
+private_address: "%{ipaddress_192_168_100_0_24}"
+private_interface: "%{interface_192_168_100_0_24}"
 
 rjil::ceph::osd::autogenerate: true
 rjil::ceph::osd::autodisk_size: 10
@@ -17,7 +17,9 @@ nova::compute::libvirt::libvirt_virt_type: qemu
 rjil::jiocloud::consul::service::interval: 120s
 
 rjil::system::accounts::active_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,soumit,anshup,varunarya,prashant,punituee]
-rjil::system::accounts::sudo_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,soumit,anshup,varunarya,prashant,punituee]
+rjil::system::accounts::sudo_users:
+  admin:
+    users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,soumit,anshup,varunarya,prashant,punituee]
 ceph::conf::mon_timecheck_interval: 30
 
 ##

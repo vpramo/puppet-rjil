@@ -19,4 +19,8 @@ class rjil::apache (
     include apache::mod::ssl
   }
 
+  include rjil::trust_selfsigned_cert
+
+  Exec['update-cacerts'] ~> Service['httpd']
+
 }

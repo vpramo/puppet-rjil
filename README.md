@@ -837,18 +837,6 @@ We use slack as the communication center for this project. Slack is a great plac
 to ask a questions, or to collaborate on issues where pairing is desired. Events related
 to the development of the cloud platform are also streamed to slack in real time.
 
-### Kanban board (ie: tasks)
-
-````
- https://trello.com/b/PUXa12Cl/jiocloud-deployments
-````
-
-We use Trello to track tasks and task backlog related to this project. It is used
-to understand our tasks, how they fit into overall categories as well as who is
-currently working on what things. The process for how tasks are added into Trello
-is currently a bit adhoc, but needs to be enhanced as additional resources come
-online.
-
 ### Specifications
 
 ````
@@ -937,7 +925,118 @@ Each service mentioned here also contains the output from it's failed command.
 
 /var/log/cloud-init-output.log
 
-# TODO
+## Developing as your own tenant
+
+It is possible to invoke build scripts as your own tenant. In fact, for
+development, this is how you should be creating environments.
+
+### Setting up your environment:
+
+There are a few steps that need to be performed before you can use your own tenant for testing.
+
+#### Get Credentials
+
+First of all, you need to get credentials for a user in that tenant. Please ask your
+cloud adminstrator for this. Once you get these credentials, you should store them
+in a local rc file:
+
+    export OS_AUTH_URL=https://somecloud:5000/v2.0/
+    export OS_TENANT_NAME=sometenant
+    export OS_PASSWORD=somepassword
+    export OS_USERNAME=someuser
+
+These examples assume this file is stored at `/home/dan/cloud.dan.env`
+
+#### Create Openstack objects
+
+Next, you need to create the required objects in your
+cloud using those credentials.
+
+* keypair
+* security group rules - you may need to add some security groups rules
+to your default security group, at a minimum, you will need rules to
+allow ssh ingress.
+
+    neutron security-group-rule-create --protocol tcp --port-range-min 22 --port-range-max 22 --direction ingress <default_sec_group_uuid>
+
+* network - You need to create your own tenant specific network to launch VMs into.
+
+    neutron net-create dannet
+    neutron subnet-create --dns-nameserver 10.0.0.2 --enable-dhcp --allocation-pool start=10.0.0.2,end=10.0.255.254  dannet 10.0.0.0/16
+
+This network *MUST* be in the 10.0.0.0/16 range or you will have to update the following
+network settings in hiera:
+
+    public_address: "%{ipaddress_10_0_0_0_16}"
+    public_interface: "%{interface_10_0_0_0_16}"
+    private_address: "%{ipaddress_10_0_0_0_16}"
+    private_interface: "%{interface_10_0_0_0_16}"
+
+#### Custom mapping file
+
+You will also need to create a custom mapping file since you will need to refer
+to your own custom network in this file.
+
+Most of the settings inside of the mappings file can be used, you may want to
+use the nova-api to make sure that that uuids specified in this file are visible.
+
+At a minimum, you should be able to copy a mapping file from your cloud provider
+and just update the uuid of the network with the one that you created above.
+
+#### Create your httpproxy server
+
+Each enviroment needs to have a local proxy server for 2 reasons:
+
+1. Vms only get access to the outside world if they have a floating ip
+assigned, therefore, you need a server on your local subnet to proxy requests
+to the outside for machines that don't have fips assigned.
+
+2. Build machines pull down lots of bits from the internet over and over again,
+caching those bits in a proxy saves lots of time, and bandwidth!
+
+The following scripts can be used as an example of how to create your proxy server:
+
+    # make sure that no proxy is set b/c this machine will access the internet directly
+    unset http_proxy
+    unset https_proxy
+    unset env_http_proxy
+    unset env_https_proxy
+    # specify an external dns server
+    export dns_override=8.8.8.8
+    # get a token
+    export consul_discovery_token=$(curl http://consuldiscovery.linux2go.dk/new)
+    export BUILD_NUMBER=external
+    export env=at
+    # be sure to specify the cloud provider name that maps to your mapping file that you created
+    export cloud_provider=dan
+    # be sure to use the key that you created above
+    export KEY_NAME=combo
+    # make sure that you specify the file that contains your credentials
+    export env_file=/home/dan/cloud.jio.env
+    export ssh_user=ubuntu
+    # use the external layout, it builds the httpproxy server
+    export layout=external
+    # the httpproxy server will also be the consul bootstrap server
+    export consul_bootstrap_node=httpproxy1
+    bash build_scripts/deploy.sh
+
+To simplify the instructions, I am going to assume that the private ip address
+of this machine is 10.0.0.2, I would strongly suggest that you ensure that it
+gets that ip address.
+
+#### Build your build script for you other layouts
+
+It make sense to create a wrapper script to for your other build environments:
+
+    export env_http_proxy=http://10.0.0.2:3128/
+    export env_https_proxy=http://10.0.0.2:3128/
+    export consul_discovery_token=$(curl http://consuldiscovery.linux2go.dk/new)
+    export BUILD_NUMBER=test`date +"%d%m%y%H%M%S"`
+    export env=at
+    export cloud_provider=dan
+    export KEY_NAME=combo
+    export env_file=/home/dan/cloud.dan.env
+    bash -x build_scripts/deploy.sh
 
 ## supporting devs
 

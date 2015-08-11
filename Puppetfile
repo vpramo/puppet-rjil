@@ -78,8 +78,8 @@ mod 'stackforge/openstacklib',
   :ref => 'origin/master'
 
 mod 'stackforge/ironic',
-  :git => "#{base_url}/JioCloud/puppet-ironic",
-  :ref => 'master'
+  :git => "#{base_url}/jiocloud/puppet-ironic",
+  :ref => 'origin/master'
 
 mod 'puppetlabs/concat',
   :git => "#{base_url}/puppetlabs/puppetlabs-concat",

@@ -1,4 +1,6 @@
 rjil::jiocloud::consul_role: bootstrapserver
+rjil::keystone::disable_db_sync: false
+rjil::system::ntp::run_ntpdate: false
 rjil::system::ntp::server: true
 ntp::servers:
   - pool.ntp.org
@@ -10,3 +12,56 @@ nova::api::neutron_metadata_proxy_shared_secret: false
 
 # neutron is already configured in case of uc, so no need to configure it again.
 rjil::tempest::provision::configure_neutron: false
+
+rjil::jiocloud::dns::entries:
+  identity-uc.jiocloud.com:
+    cname: keystone.service.consul
+  network-uc.jiocloud.com:
+    cname: neutron.service.consul
+  compute-uc.jiocloud.com:
+    cname: nova.service.consul
+  image-uc.jiocloud.com:
+    cname: glance.service.consul
+  ironic-uc.jiocloud.com:
+    cname: ironic.service.consul
+
+keystone_public_address: identity-uc.jiocloud.com
+keystone_private_address: identity-uc.jiocloud.com
+
+nova_public_address: compute-uc.jiocloud.com
+nova_internal_address: compute-uc.jiocloud.com
+
+glance_public_address: image-uc.jiocloud.com
+glance_internal_address: image-uc.jiocloud.com
+
+cinder_public_address: volume-uc.jiocloud.com
+cinder_internal_address: volume-uc.jiocloud.com
+
+radosgw_public_address: object-uc.jiocloud.com
+radosgw_internal_address: object-uc.jiocloud.com
+
+neutron_public_address: network-uc.jiocloud.com
+neutron_internal_address: network-uc.jiocloud.com
+
+ironic_public_address: ironic-uc.jiocloud.com
+ironic_internal_address: ironic-uc.jiocloud.com
+
+rjil::openstack_objects::lb_available: false
+
+rjil::neutron::api_extensions_path: false
+rjil::neutron::service_provider: false
+
+rjil::openstack_objects::tenants: []
+tempest::neutron_available: false
+tempest::provision::networkname: false
+tempest::provision::imagename: false
+neutron::core_plugin: ml2
+neutron::service_plugins: [router]
+neutron::quota::quota_driver: neutron.db.quota_db.DbQuotaDriver
+
+rjil::nova::compute::rbd_enabled: false
+rjil::nova::compute::compute_driver: ironic
+
+rjil::nova::controller::manage_flavors: false
+rjil::test::neutron::fip_available: false
+rjil::test::neutron::test_netcreate: false

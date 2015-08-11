@@ -1,0 +1,12 @@
+image:
+  trusty: 5d246189-a666-470c-8cee-36ee489cbd9e
+flavor:
+  small: da9ba7b5-be67-4a62-bb35-a362e05ba2f2
+  medium: da9ba7b5-be67-4a62-bb35-a362e05ba2f2
+  large: da9ba7b5-be67-4a62-bb35-a362e05ba2f2
+  storage: da9ba7b5-be67-4a62-bb35-a362e05ba2f2
+networks:
+   default:
+     - 9a977153-2677-4171-948f-7673af32a8a3
+boot_volume:
+  default_volume: 50

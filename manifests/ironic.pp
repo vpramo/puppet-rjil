@@ -4,12 +4,12 @@
 #
 
 class rjil::ironic(
-  $deploy_ironic_api_url = "http://${::ipaddress}:6385/",
+  $listen_address = $::ipaddress,
+  $api_port       = 6385,
+  $api_protocol   = 'http',
+  $ssl            = false,
+  $neutron_url   = 'http://localhost:9696',
 ) {
-  class { '::rabbitmq': }
-
-  class { '::nova::compute': }
-  class { '::nova::compute::ironic' :}
 
   class { '::ironic': }
   class { '::ironic::api': }
@@ -17,13 +17,20 @@ class rjil::ironic(
   class { '::ironic::drivers::ipmi': }
   class { '::ironic::keystone::auth': }
 
-  file { '/etc/init/nova-compute.conf':
-    source => 'puppet:///modules/rjil/nova-compute.conf',
-    notify => Service['nova-compute']
+  user {'ironic':
+    ensure => present,
+    before => [ Package['ironic-api'], Package['ironic-conductor'] ],
+    tag    => 'package',
   }
 
-  file { '/etc/default/neutron-server':
-    source => 'puppet:///modules/rjil/neutron-server.defaults',
+  ##
+  # it seems another bug in ironic packaging, /var/lib/ironic is not present.
+  ##
+  file {'/var/lib/ironic':
+    ensure  => 'directory',
+    owner   => 'ironic',
+    group   => 'ironic',
+    require => User['ironic']
   }
 
   file { '/tftpboot':
@@ -56,7 +63,11 @@ class rjil::ironic(
     ensure => 'present'
   }
 
-  ironic_config { 'conductor/ironic_api_url': value => $deploy_ironic_api_url }
+  ironic_config { 'conductor/api_url':
+    value => "${api_protocol}://${listen_address}:${api_port}/"
+  }
+
+  ironic_config { 'neutron/url': value => $neutron_url }
 
   package { 'tftpd-hpa':
     ensure => 'present'
@@ -67,7 +78,27 @@ class rjil::ironic(
 
   rjil::jiocloud::consul::service { 'ironic':
     tags          => ['real'],
-    port          => 6385,
-    check_command => "/usr/lib/nagios/plugins/check_http -I 0.0.0.0 -p 6385"
+    port          => $api_port,
   }
+
+  rjil::test::check {'tftp':
+    type       => 'udp',
+    check_type => 'validation',
+    port       => 69
+  }
+
+  rjil::test::check {'ironic':
+    port => $api_port,
+    ssl  => $ssl,
+  }
+
+
+  rjil::jiocloud::consul::service { 'ironic-conductor':
+    tags          => ['real'],
+  }
+
+  rjil::test::check {'ironic-conductor':
+    type       => 'proc',
+  }
+
 }

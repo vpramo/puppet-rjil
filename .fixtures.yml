@@ -10,6 +10,8 @@ fixtures:
       ref: 41e2ddbc1cd861247e57d16b778cbe891602f509
     openstack_extras:
       repo: https://github.com/bodepd/puppet-openstack_extras
+    dhcp:
+      repo: https://github.com/JioCloud/puppetlabs-dhcp
     heat:
       repo: https://github.com/stackforge/puppet-heat
     glance:
@@ -19,7 +21,7 @@ fixtures:
     cinder:
       repo: https://github.com/stackforge/puppet-cinder
     neutron:
-      repo: https://github.com/stackforge/puppet-neutron
+      repo: https://github.com/jiocloud/puppet-neutron
     memcached:
       repo: git://github.com/saz/puppet-memcached
       ref: fee24ce
@@ -76,7 +78,7 @@ fixtures:
       repo: https://github.com/jiocloud/puppet-openstacklib
       ref: origin/master
     ironic:
-      repo: https://github.com/stackforge/puppet-ironic
+      repo: https://github.com/jiocloud/puppet-ironic
       ref: origin/master
     concat:
       repo: https://github.com/puppetlabs/puppetlabs-concat
@@ -90,9 +92,6 @@ fixtures:
     mysql:
       repo: https://github.com/puppetlabs/puppetlabs-mysql
       ref: 2.2.3
-    neutron:
-      repo: https://github.com/stackforge/puppet-neutron
-      ref: 4.1.0
     nova:
       repo: https://github.com/jiocloud/puppet-nova
       ref: origin/master

@@ -66,7 +66,6 @@ if [ $rv -ne 0 ]
 then
   # if we are failing, run puppet to see if it fixes itself
   run_puppet
-  consul reload
 fi
 validate_service
 python -m jiocloud.orchestrate local_version $pending_version

@@ -170,22 +170,28 @@ node /^haproxy\d+/ {
 node /^uc\d+/ {
   include rjil::base
   include rjil::memcached
+  include rjil::rabbitmq
   include openstack_extras::client
   include rjil::db
   include rjil::keystone
   include rjil::glance
   include rjil::neutron::ovs
+  include rjil::neutron::network::undercloud
   include rjil::ironic
   include rjil::nova::controller
   include rjil::openstack_zeromq
-  include openstack_extras::keystone_endpoints
-  include rjil::keystone::test_user
-  ensure_resource('rjil::service_blocker', 'keystone-admin', {})
-  Rjil::Service_blocker['keystone-admin'] -> Class['openstack_extras::keystone_endpoints']
-  Rjil::Service_blocker['keystone-admin'] -> Class['rjil::keystone::test_user']
-
-  include rjil::jiocloud::aptmirror
+  include rjil::openstack_objects
+  include rjil::nova::compute
   include rjil::jiocloud::dhcp
+
+  Class['rjil::db'] -> Rjil::Service_blocker['neutron']
+  Class['rjil::db'] -> Rjil::Service_blocker['glance']
+  Class['rjil::neutron::ovs'] -> Rjil::Service_blocker['neutron']
+  Service['httpd'] -> Rjil::Service_blocker['neutron']
+
+  Service['httpd'] -> Rjil::Service_blocker['glance']
+
+  #include rjil::jiocloud::aptmirror
 }
 
 node /^httpproxy\d+/ {

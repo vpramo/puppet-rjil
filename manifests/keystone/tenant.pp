@@ -1,7 +1,7 @@
 ##
 # Define: rjil::keystone::tenant
 #
-# == Purpose: create the users, tenants, roles
+# == Purpose: create the users, tenants
 #
 ##
 define rjil::keystone::tenant (

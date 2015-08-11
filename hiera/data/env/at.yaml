@@ -1,5 +1,8 @@
 rustedhalo_apt_repo_release: 'trusty-testing'
 
+rjil::jiocloud::consul::encrypt: "%{consul_gossip_encrypt}"
+contrail::vrouter::vrouter_physical_interface: eth0
+
 rjil::ceph::osd::autogenerate: true
 rjil::ceph::osd::autodisk_size: 10
 rjil::ceph::osd::osd_journal_size: 2
@@ -7,10 +10,10 @@ rjil::ceph::osd::osd_journal_size: 2
 # Only Qemu is supported on virtual testing environment
 nova::compute::libvirt::libvirt_virt_type: qemu
 
-rjil::system::accounts::active_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,mayankkapoor,soumit,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,prashant.chawla,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash]
+rjil::system::accounts::active_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,mayankkapoor,soumit,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,prashant.chawla,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash,rakesh,manasi,bafna]
 rjil::system::accounts::sudo_users:
   admin:
-    users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,mayankkapoor,soumit,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,prashant.chawla,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash]
+    users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,mayankkapoor,soumit,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,prashant.chawla,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash,rakesh,manasi,bafna]
 
 rjil::base::self_signed_cert: true
 
@@ -37,8 +40,27 @@ rjil::neutron::contrail::fip_pools:
     tenants: ['tempest','mgmt_tenant','internal_tenant']
 
 contrail::vrouter::vgw_subnets: ['100.1.0.0/24']
-
 contrail::edge_routers:
   router1: {host_address: '1.1.1.1'}
   router2: {host_address: '1.1.1.2'}
 
+rjil::neutron::ovs::swap_macs: true
+
+ilo::network: 10.1.0.0
+ilo::netmask: 255.255.255.0
+ilo::gateway: 10.1.0.1
+ilo::dhcp_range: '10.1.0.50 10.1.0.100'
+
+rjil::jiocloud::dhcp::interface: eth1
+rjil::jiocloud::dhcp::server_ipaddress: 10.1.0.2
+rjil::jiocloud::dhcp::server_netmask: "%{hiera('ilo::netmask')}"
+
+rjil::neutron::ovs::br_physical_interface: eth0
+rjil::neutron::ovs::br_name: br-ctlplane
+rjil::neutron::ovs::gateway: 10.0.0.1
+rjil::neutron::ovs::nameservers: [8.8.8.8]
+rjil::neutron::network::undercloud::gateway: 10.0.0.1
+rjil::neutron::network::undercloud::pool_start: 10.0.0.12
+rjil::neutron::network::undercloud::pool_end: 10.0.0.254
+rjil::neutron::network::undercloud::cidr: 10.0.0.0/16
+rjil::neutron::network::undercloud::dns_nameservers: [8.8.8.8]

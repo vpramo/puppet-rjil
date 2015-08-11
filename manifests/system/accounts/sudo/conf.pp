@@ -7,7 +7,8 @@ define rjil::system::accounts::sudo::conf (
   $commands_allowed = [],
 ) {
 
-  $cmdalias_name_uc = upcase($user)
+  $user_for_sudo = regsubst($user,'\.','','G')
+  $cmdalias_name_uc = upcase($user_for_sudo)
 
   ##
   # empty array in commands allowed means all commands are allowed (isn't it okay?)

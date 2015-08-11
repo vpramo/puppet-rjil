@@ -1,0 +1,33 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary physical interface
+auto <%= @br_physical_interface %>
+iface <%= @br_physical_interface %> inet manual
+    <% if @physical_mac -%>
+    hwaddress ether <%= @physical_mac %>
+    <% end -%>
+    up ifconfig $IFACE 0.0.0.0 up
+
+auto <%= @br_name %>
+iface <%= @br_name %> inet static
+    address <%= @br_address_orig %>
+    netmask <%= @br_netmask_orig %>
+    network <%= @br_network_orig %>
+    gateway <%= @gateway %>
+    # dns-* options are implemented by the resolvconf package, if installed
+    <% if @br_mac -%>
+    hwaddress ether <%= @br_mac %>
+    <% end -%>
+    <% if @nameservers -%>
+    dns-nameservers <%= @nameservers %>
+    <% end -%>
+    dns-search <%= @domain %>
+    up iptables -t nat -A PREROUTING -d 169.254.169.254/32 -i $IFACE -p tcp -m tcp --dport 80 -j DNAT --to-destination <%= @br_address_orig %>:8775
+    down iptables -t nat -D PREROUTING -d 169.254.169.254/32 -i $IFACE -p tcp -m tcp --dport 80 -j DNAT --to-destination <%= @br_address_orig %>:8775
+
+source-directory interfaces.d

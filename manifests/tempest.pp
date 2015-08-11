@@ -14,6 +14,7 @@ class rjil::tempest (
   $nova_admin_user        = 'nova',
   $nova_admin_password    = 'nova',
   $tempest_test_file      = '/home/jenkins/tempest_tests.txt',
+  $image_name             = 'cirros',
 ) {
 
 ##
@@ -150,6 +151,8 @@ class rjil::tempest (
     'subunit',
   ])
 
-  include ::tempest
+  class {'::tempest':
+    image_name => $image_name,
+  }
 }
 

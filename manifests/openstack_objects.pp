@@ -10,6 +10,7 @@ class rjil::openstack_objects(
   $override_ips      = false,
   $users             = {},
   $tenants           = undef,
+  $roles             = undef,
   $lb_available      = true,
 ) {
 
@@ -59,9 +60,9 @@ class rjil::openstack_objects(
   Rjil::Service_blocker[$neutron_service_name] -> Neutron_network<||>
 
   # provision keystone objects for all services
-  include openstack_extras::keystone_endpoints
+  include ::openstack_extras::keystone_endpoints
   # provision tempest resources like images, network, users etc.
-  include tempest::provision
+  include rjil::tempest::provision
 
   # create users, tenants, roles, default networks
   create_resources('rjil::keystone::user',$users)
@@ -77,4 +78,11 @@ class rjil::openstack_objects(
     create_resources('rjil::keystone::tenants',$tenants)
   }
 
+  if is_array($roles) {
+    keystone_role { $roles:
+      ensure => present,
+    }
+  } elsif is_hash($roles) {
+    create_resources('keystone_role',$roles,{ensure =>present})
+  }
 }

@@ -1,0 +1,4 @@
+public_address: "%{ipaddress_em4}"
+public_interface: em4
+private_address: "%{ipaddress_em4}"
+private_interface: em4

@@ -29,3 +29,4 @@ class rjil::contrail::analytics
   rjil::jiocloud::logrotate {'contrail-api':
     ensure => absent
   }
+ }

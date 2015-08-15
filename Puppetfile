@@ -139,7 +139,7 @@ mod 'stephenrjohnson/puppet',
 
 mod 'jiocloud/contrail',
   :git => "#{base_url}/vpramo/jiocloud-contrail",
-  :ref => 'origin/contrail-upgrade-disable-dns'
+  :ref => 'origin/contrail-v2'
 
 mod 'deric/zookeeper',
   :git => "#{base_url}/deric/puppet-zookeeper",

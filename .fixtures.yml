@@ -35,7 +35,7 @@ fixtures:
       ref: v2.3.6
     contrail:
       repo: https://github.com/vpramo/jiocloud-contrail
-      ref: 'origin/contrail-upgrade-disable-dns'
+      ref: 'origin/contrail-v2'
     sudo:
       repo: https://github.com/saz/puppet-sudo
       ref: 62b93da

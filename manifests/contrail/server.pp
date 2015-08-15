@@ -3,6 +3,9 @@
 ###
 class rjil::contrail::server (
   $enable_analytics = true,
+  $enable_dns       = false,
+  $vm_domain        = undef,
+  $dns_port         = '10000'
 ) {
 
   ##
@@ -19,6 +22,14 @@ class rjil::contrail::server (
   }
 
   include ::contrail
+  if $enable_dns and $vm_domain {
+    include dnsmasq
+    dnsmasq::conf { 'contrail':
+      ensure  => present,
+      content => "server=/${vm_domain}/127.0.0.1#${dns_port}",
+    }
+  }
+
 
   $contrail_logs = ['contrail-api-daily',
                     'contrail-discovery-daily',

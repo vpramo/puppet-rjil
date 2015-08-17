@@ -644,6 +644,10 @@ rjil::system::apt::repositories:
     release: 'trusty-security'
     repos: 'main restricted universe multiverse'
     include_src: false
+  contrail:
+    location: 'http://jiocloud.rustedhalo.com/contrailv2/'
+    release: 'trusty'
+    repos: 'main'
 
 ########################################
 ########## Contrail Settings ###########

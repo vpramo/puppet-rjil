@@ -28,7 +28,6 @@ describe 'rjil::contrail::server' do
       should contain_file('/usr/lib/jiocloud/tests/contrail-api.sh')
       should contain_file('/usr/lib/jiocloud/tests/contrail-control.sh')
       should contain_file('/usr/lib/jiocloud/tests/contrail-discovery.sh')
-      should contain_file('/usr/lib/jiocloud/tests/contrail-dns.sh')
       should contain_file('/usr/lib/jiocloud/tests/contrail-schema.sh')
       should contain_file('/usr/lib/jiocloud/tests/contrail-webui-webserver.sh')
       should contain_file('/usr/lib/jiocloud/tests/contrail-webui-jobserver.sh')
@@ -39,6 +38,17 @@ describe 'rjil::contrail::server' do
       ['contrail-config','contrail-config-openstack','ifmap-server','contrail-analytics']. each do |x|
         should contain_rjil__jiocloud__logrotate(x).with_ensure('absent')
       end
+    end
+  end
+  context 'with contrail-dns' do
+    let :params do
+    {
+      :enable_dns => true,
+      :vm_domain  => 'jiovm',
+    }
+    end
+    it do
+      should contain_file('/usr/lib/jiocloud/tests/contrail-dns.sh')
     end
   end
 end

@@ -644,10 +644,7 @@ rjil::system::apt::repositories:
     release: 'trusty-security'
     repos: 'main restricted universe multiverse'
     include_src: false
-  contrail:
-    location: 'http://jiocloud.rustedhalo.com/contrailv2/'
-    release: 'trusty'
-    repos: 'main'
+
 
 ########################################
 ########## Contrail Settings ###########
@@ -670,8 +667,6 @@ contrail::vrouter::metadata_proxy_secret: "%{hiera('nova_metadata_proxy_secret')
 contrail::vrouter::keystone_admin_password: "%{hiera('admin_password')}"
 contrail::interface: "%{hiera('private_interface')}"
 
-contrail::manage_repo: false
-contrail::vrouter::manage_repo: false
 contrail::neutron_ip: "%{hiera('neutron_public_address')}"
 contrail::enable_analytics: false
 

@@ -34,7 +34,8 @@ fixtures:
       repo: https://github.com/saz/puppet-ssh
       ref: v2.3.6
     contrail:
-      repo: https://github.com/jiocloud/jiocloud-contrail
+      repo: https://github.com/vpramo/jiocloud-contrail
+      ref: 'origin/contrail-upgrade-disable-dns'
     sudo:
       repo: https://github.com/saz/puppet-sudo
       ref: 62b93da

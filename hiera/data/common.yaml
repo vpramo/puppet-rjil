@@ -670,14 +670,14 @@ contrail::interface: "%{hiera('private_interface')}"
 contrail::neutron_ip: "%{hiera('neutron_public_address')}"
 contrail::enable_analytics: false
 
-contrail::enable_dns: true
+contrail::enable_dns: false
 contrail::dns_port: 10000
 
 contrail::vrouter::debug: true
 
 rjil::contrail::server::enable_analytics: false
 rjil::contrail::server::enable_dns: "%{hiera('contrail::enable_dns')}"
-rjil::contrail::server::vm_domain: 'jiovm'
+#rjil::contrail::server::vm_domain: 'jiovm'
 rjil::contrail::server::dns_port: "%{hiera('contrail::dns_port')}"
 
 contrail::config::quota_floating_ip: 5

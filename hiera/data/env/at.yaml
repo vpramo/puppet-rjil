@@ -1,10 +1,10 @@
 rustedhalo_apt_repo_release: 'trusty-testing'
-rjil::system::apt::env_repositories:
-  contrailv2:
-    location: 'http://jiocloud.rustedhalo.com/contrailv2'
-    release: 'trusty'
-    repos: 'main'
-    include_src: false
+#rjil::system::apt::env_repositories:
+#  contrailv2:
+#    location: 'http://jiocloud.rustedhalo.com/contrailv2'
+#    release: 'trusty'
+#    repos: 'main'
+#    include_src: false
 
 rjil::jiocloud::consul::encrypt: "%{consul_gossip_encrypt}"
 contrail::vrouter::vrouter_physical_interface: eth0

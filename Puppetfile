@@ -207,3 +207,11 @@ mod 'community/archive',
 mod 'pdxcat/collectd',
   :git => "#{base_url}/pdxcat/puppet-module-collectd",
   :ref => 'v3.2.0'
+
+mod 'unibet/vagrant',
+  :git => "#{base_url}/unibet/puppet-vagrant",
+  :ref => 'origin/master'
+
+mod 'danzilio/danzilio-virtualbox',
+  :git => "#{base_url}/danzilio/danzilio-virtualbox",
+  :ref => 'origin/master'

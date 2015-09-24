@@ -16,7 +16,11 @@ nova::compute::libvirt::libvirt_virt_type: qemu
 # more appropriate value.
 rjil::jiocloud::consul::service::interval: 120s
 
-rjil::system::accounts::active_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,soumit,anshup,varunarya,prashant,punituee]
+
+contrail::vrouter::vrouter_physical_interface: eth1
+
+rjil::system::accounts::active_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,amar,abhishekl,anshup,varunarya,prashant,punituee]
+
 rjil::system::accounts::sudo_users:
   admin:
     users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,soumit,anshup,varunarya,prashant,punituee]
@@ -38,6 +42,9 @@ ceph::conf::mon_timecheck_interval: 30
 #                   moment) from when the package got created to reach here.
 ##
 rustedhalo_apt_repo_release: 'trusty-testing'
+
+
+rjil::jiocloud::consul::encrypt: "%{consul_gossip_encrypt}"
 
 ##
 # Running the system behind proxy need certain extra entries to be added
@@ -112,3 +119,5 @@ rjil::neutron::contrail::fip_pools:
     cidr: 99.0.0.0/24
     public: false
     tenants: ['tempest','testtenant']
+
+contrail::vrouter::vgw_subnets: ['100.1.0.0/24']

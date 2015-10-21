@@ -3,6 +3,9 @@
 ###
 class rjil::contrail::server (
   $enable_analytics = true,
+  $enable_dns       = false,
+  $vm_domain        = undef,
+  $dns_port         = '10000'
 ) {
 
   ##
@@ -10,7 +13,7 @@ class rjil::contrail::server (
   ##
   $contrail_tests = ['ifmap.sh','contrail-api.sh',
                       'contrail-control.sh','contrail-discovery.sh',
-                      'contrail-dns.sh','contrail-schema.sh',
+                      'contrail-schema.sh',
                       'contrail-webui-webserver.sh','contrail-webui-jobserver.sh']
   rjil::test {$contrail_tests:}
 
@@ -19,6 +22,15 @@ class rjil::contrail::server (
   }
 
   include ::contrail
+  if $enable_dns and $vm_domain {
+    include dnsmasq
+    dnsmasq::conf { 'contrail':
+      ensure  => present,
+      content => "server=/${vm_domain}/127.0.0.1#${dns_port}",
+    }
+    rjil::test {'contrail-dns.sh':}
+  }
+
 
   $contrail_logs = ['contrail-api-daily',
                     'contrail-discovery-daily',

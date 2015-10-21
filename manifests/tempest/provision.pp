@@ -59,11 +59,17 @@ class rjil::tempest::provision (
   }
 
   if $convert_to_raw {
+
+    package {'qemu-utils':
+      ensure => installed,
+    }
+
     exec {'convert_image_to_raw':
       command => "qemu-img convert -O raw ${staging_path}/${image_name} ${staging_path}/${image_name}.img",
       creates => "${staging_path}/${image_name}.img",
-      require => Staging::File["image_stage_${image_name}"],
+      require => [ Staging::File["image_stage_${image_name}"], Package['qemu-utils']],
     }
+
     $image_source_path = "${staging_path}/${image_name}.img"
     $disk_format_l = 'raw'
   } else {

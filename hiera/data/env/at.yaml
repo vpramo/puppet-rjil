@@ -10,10 +10,10 @@ rjil::ceph::osd::osd_journal_size: 2
 # Only Qemu is supported on virtual testing environment
 nova::compute::libvirt::libvirt_virt_type: qemu
 
-rjil::system::accounts::active_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,mayankkapoor,soumit,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,prashant.chawla,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash,rakesh,manasi,bafna,anant]
+rjil::system::accounts::active_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,ahmad,vaidy,rohit,amar,abhishekl,mayankkapoor,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash,rakesh,manasi,bafna,anant,rahul,devendermishra,baljit,dpak]
 rjil::system::accounts::sudo_users:
   admin:
-    users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,sanjayu,alokjani,amar,ynshenoy,abhishekl,mayankkapoor,soumit,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,prashant.chawla,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash,rakesh,manasi,bafna,anant]
+    users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,ahmad,vaidy,rohit,amar,abhishekl,mayankkapoor,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash,rakesh,manasi,bafna,anant,rahul,devendermishra,baljit,dpak]
 
 rjil::base::self_signed_cert: true
 

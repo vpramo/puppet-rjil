@@ -63,11 +63,13 @@ describe 'rjil::tempest::provision' do
         }
       )
 
+      should contain_package('qemu-utils')
+
       should contain_exec('convert_image_to_raw').with(
         {
           :command => 'qemu-img convert -O raw /opt/staging/cirros /opt/staging/cirros.img',
           :creates => '/opt/staging/cirros.img',
-          :require => 'Staging::File[image_stage_cirros]',
+          :require => '[Staging::File[image_stage_cirros]{:name=>"image_stage_cirros"}, Package[qemu-utils]{:name=>"qemu-utils"}]',
         }
       )
 

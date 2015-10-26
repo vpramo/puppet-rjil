@@ -2,13 +2,22 @@
 #
 # Parallel provisioning for vagrant
 #
+  
 up() {
+  . newtokens.sh
+  if [ ! -n $consul_discovery_token ]; then
+    echo "Error fetching consul discovery token, exiting"
+    exit 100
+  fi
+  adapter=`VBoxManage hostonlyif create | cut -d"'" -f2`
+  export NIC_ADAPTER=$adapter
+  vagrant up bootstrap1
   vagrant up --no-provision
+  VBoxManage dhcpserver remove --ifname $adapter
 }
 
 provision() {
   sleep 5
-  . newtokens.sh
   if [ ! -n $consul_discovery_token ]; then
     echo "Error fetching consul discovery token, exiting"
     exit 100
@@ -19,7 +28,12 @@ provision() {
 }
 
 destroy() {
+  if [ ! -n $NIC_ADAPTER ]; then
+    echo "Export the NIC_ADAPTER associated with the gate"
+    exit 100
+  fi
   vagrant destroy -f
+  VBoxManage hostonlyif remove $NIC_ADAPTER
 }
 
 case $1 in

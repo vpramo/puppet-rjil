@@ -58,6 +58,8 @@ Vagrant.configure("2") do |config|
 
       # This seems wrong - Soren
       config.vm.provision 'shell', :inline =>
+      'ifdown eth1; ifup eth1'
+      config.vm.provision 'shell', :inline =>
       'cp /etc/puppet/hiera/hiera.yaml /etc/puppet'
 
       config.vm.host_name = "#{node_name}.domain.name"
@@ -108,10 +110,11 @@ Vagrant.configure("2") do |config|
 
  
       net_prefix = ENV['NET_PREFIX'] || "192.168.100.0"
-      if [ "#{node_name}" == 'bootstrap1' ]
-        config.vm.network  "private_network", :ip => "192.168.100.10", :netmask => "255.255.255.0", :name => 'vboxnet1', :adapter => 2
+      nic_adapter= ENV['NIC_ADAPTER'] || `echo "No environment variable NIC_ADAPTER, set the NIC_ADAPTER you want to place the VM";exit 100`
+      if node_name == 'bootstrap1'
+        config.vm.network  "private_network", :ip => "192.168.100.10", :netmask => "255.255.255.0", :name => nic_adapter, :adapter => 2
       else
-        config.vm.network "private_network", :type => :dhcp, :ip => net_prefix, :netmask => "255.255.255.0", :name => 'vboxnet1', :adapter => 2
+        config.vm.network "private_network", :type => :dhcp, :name => nic_adapter, :adapter => 2
       end
     end
   end

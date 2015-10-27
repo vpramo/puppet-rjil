@@ -15,7 +15,7 @@ up() {
   vagrant up --no-provision
   VBoxManage dhcpserver modify --ifname $adapter --disable
   #This is because of a bug in VirtualBox
-  ps -ef | grep vboxnet6 | grep VBoxNetDHCP | cut -d" " -f4 | xargs kill -9
+  ps -ef | grep $adapter | grep VBoxNetDHCP | cut -d" " -f4 | xargs kill -9
 }
 
 provision() {

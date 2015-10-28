@@ -27,7 +27,7 @@ provision() {
     exit 100
   fi
   for i in `vagrant status | grep running | awk '{print $1}'`; do 
-    if [ $i != "bootstrap1" ]
+    if [ $i != "bootstrap1" ]; then
       vagrant provision $i &
     fi
   done

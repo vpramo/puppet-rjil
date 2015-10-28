@@ -11,6 +11,8 @@ up() {
   fi
   adapter=`VBoxManage hostonlyif create | cut -d"'" -f2`
   export NIC_ADAPTER=$adapter
+  echo "export NIC_ADAPTER=$adapter" > vagrant_keys
+  echo "export consul_discovery_token=$consul_discovery_token" >> vagrant_keys
   vagrant up bootstrap1
   vagrant up --no-provision
   VBoxManage dhcpserver modify --ifname $adapter --disable
@@ -25,17 +27,20 @@ provision() {
     exit 100
   fi
   for i in `vagrant status | grep running | awk '{print $1}'`; do 
-    vagrant provision $i &
+    if [ $i != "bootstrap1" ]
+      vagrant provision $i &
+    fi
   done
 }
 
 destroy() {
-  if [ ! -n $NIC_ADAPTER ]; then
+  if [ -z $NIC_ADAPTER ]; then
     echo "Export the NIC_ADAPTER associated with the gate"
     exit 100
   fi
   vagrant destroy -f
   VBoxManage hostonlyif remove $NIC_ADAPTER
+  rm -f vagrant_keys
 }
 
 case $1 in

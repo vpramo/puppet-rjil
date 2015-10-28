@@ -111,7 +111,7 @@ Vagrant.configure("2") do |config|
  
       net_prefix = ENV['NET_PREFIX'] || "192.168.100.0"
       nic_adapter= ENV['NIC_ADAPTER'] || `echo "No environment variable NIC_ADAPTER, set the NIC_ADAPTER you want to place the VM";exit 100`
-      if node_name == 'bootstrap1'
+      if node_name == 'httpproxy1'
         config.vm.network  "private_network", :ip => "192.168.100.10", :netmask => "255.255.255.0", :name => nic_adapter, :adapter => 2
       else
         config.vm.network "private_network", :type => :dhcp, :name => nic_adapter, :adapter => 2

@@ -3,7 +3,6 @@ Exec { path => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/", "/usr/local/bin/
 node /^bootstrap\d+/ {
   include rjil::base
   include rjil::jiocloud::consul::consul_alerts
-  include rjil::jiocloud::vagrant::dhcp
 }
 ##
 # setup ceph configuration and osds on st nodes
@@ -202,6 +201,7 @@ node /^httpproxy\d+/ {
     ensure  => present,
     content => 'server=8.8.8.8',
   }
+  include rjil::jiocloud::vagrant::dhcp
 }
 
 node /^vagrant\d+/ {

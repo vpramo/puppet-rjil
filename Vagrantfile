@@ -57,6 +57,8 @@ Vagrant.configure("2") do |config|
       config.vm.synced_folder(".", "/etc/puppet/manifests")
 
       # This seems wrong - Soren
+      config.vm.provision 'shell', :inline =>
+      'ifdown eth1;ifup eth1'
       
       config.vm.provision 'shell', :inline =>
       'cp /etc/puppet/hiera/hiera.yaml /etc/puppet'

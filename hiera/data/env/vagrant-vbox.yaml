@@ -127,3 +127,8 @@ rjil::system::apt::env_repositories:
     repos: 'main'
     include_src: false
 
+ntp::servers:
+  - 10.140.221.235
+  - 10.140.221.232
+  - 10.140.221.236
+

@@ -42,6 +42,7 @@ then
        pending_version=$(python -m jiocloud.orchestrate current_version)
        echo current_version=$pending_version > /etc/facter/facts.d/current_version.txt
 
+       wget http://10.140.221.229/prod_repo.yaml -O /etc/puppet/hiera.overrides/repo.yaml 
        # Update apt sources to point to new snapshot version
        (echo 'File<| title == "/etc/consul" |> { purge => false }'; echo 'File<| title == "sources.list.d" |> { purge => false }'; echo 'include rjil::system::apt' ) | puppet apply --logdest=syslog --config_version='python -m jiocloud.orchestrate current_version'
 

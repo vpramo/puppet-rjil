@@ -106,6 +106,14 @@ Vagrant.configure("2") do |config|
       end
       config.vm.provision 'shell', :inline =>
       'puppet apply -e \'ini_setting { basemodulepath: path => "/etc/puppet/puppet.conf", section => main, setting => basemodulepath, value => "/etc/puppet/modules.overrides:/etc/puppet/modules" } ini_setting { default_manifest: path => "/etc/puppet/puppet.conf", section => main, setting => default_manifest, value => "/etc/puppet/manifests/site.pp" } ini_setting { disable_per_environment_manifest: path => "/etc/puppet/puppet.conf", section => main, setting => disable_per_environment_manifest, value => "true" }\''
+      config.vm.provision 'shell', :inline=>
+      'wget http://10.140.221.229/prod_repo.yaml -O /etc/puppet/hiera/data/repo.yaml'
+      if ENV['repo_name']
+        config.vm.provision 'shell', :inline=>
+        "curl http://apt.overcastcloud.com/#{ENV['repo_name']}/repo.key | apt-key add -"
+        config.vm.provision 'shell', :inline=>
+        "puppet apply -e 'include ::apt apt::source{ 'devrepo': location=> \"https://aasemble.com/snapshots/#{ENV['snapshot_id']}/apt.overcastcloud.com/#{ENV['repo_name']}/\", release=> 'aasemble', repos=> 'main', pin=> '800', include_src=> 'false'}'"
+      end
       config.vm.provision 'shell', :inline =>
       'puppet apply --detailed-exitcodes --debug -e "include rjil::jiocloud"; if [[ $? = 1 || $? = 4 || $? = 6 ]]; then apt-get update; puppet apply --detailed-exitcodes --debug -e "include rjil::jiocloud"; fi'
 

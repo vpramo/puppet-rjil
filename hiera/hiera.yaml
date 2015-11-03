@@ -14,3 +14,4 @@
   - "env/%{env}"
   - "secrets/common"
   - common
+  - repo

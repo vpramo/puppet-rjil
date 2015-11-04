@@ -645,6 +645,7 @@ rjil::system::apt::repositories:
     repos: 'main restricted universe multiverse'
     include_src: false
 
+
 ########################################
 ########## Contrail Settings ###########
 ########################################
@@ -665,15 +666,20 @@ contrail::rabbit_password: "%{hiera('rabbit_admin_pass')}"
 contrail::vrouter::metadata_proxy_secret: "%{hiera('nova_metadata_proxy_secret')}"
 contrail::vrouter::keystone_admin_password: "%{hiera('admin_password')}"
 contrail::interface: "%{hiera('private_interface')}"
-
 contrail::manage_repo: false
 contrail::vrouter::manage_repo: false
+
 contrail::neutron_ip: "%{hiera('neutron_public_address')}"
 contrail::enable_analytics: false
+
+contrail::enable_dns: false
+contrail::dns_port: 10000
 
 contrail::vrouter::debug: true
 
 rjil::contrail::server::enable_analytics: false
+rjil::contrail::server::enable_dns: "%{hiera('contrail::enable_dns')}"
+rjil::contrail::server::dns_port: "%{hiera('contrail::dns_port')}"
 
 contrail::config::quota_floating_ip: 5
 contrail::config::quota_logical_router: 10

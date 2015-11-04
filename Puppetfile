@@ -138,8 +138,8 @@ mod 'stephenrjohnson/puppet',
   :ref => '1.0.0'
 
 mod 'jiocloud/contrail',
-  :git => "#{base_url}/JioCloud/jiocloud-contrail",
-  :ref => 'master'
+  :git => "#{base_url}/jiocloud/jiocloud-contrail",
+  :ref => 'origin/master'
 
 mod 'deric/zookeeper',
   :git => "#{base_url}/deric/puppet-zookeeper",
@@ -207,3 +207,11 @@ mod 'community/archive',
 mod 'pdxcat/collectd',
   :git => "#{base_url}/pdxcat/puppet-module-collectd",
   :ref => 'v3.2.0'
+
+mod 'unibet/vagrant',
+  :git => "#{base_url}/unibet/puppet-vagrant",
+  :ref => 'origin/master'
+
+mod 'danzilio/danzilio-virtualbox',
+  :git => "#{base_url}/danzilio/danzilio-virtualbox",
+  :ref => 'origin/master'

@@ -1,7 +1,14 @@
 rustedhalo_apt_repo_release: 'trusty-testing'
+rjil::system::apt::env_repositories:
+  contrailv2:
+    location: 'http://jiocloud.rustedhalo.com/contrailv2'
+    release: 'trusty'
+    repos: 'main'
+    include_src: false
 
 rjil::jiocloud::consul::encrypt: "%{consul_gossip_encrypt}"
 contrail::vrouter::vrouter_physical_interface: eth0
+
 
 rjil::ceph::osd::autogenerate: true
 rjil::ceph::osd::autodisk_size: 10
@@ -10,10 +17,10 @@ rjil::ceph::osd::osd_journal_size: 2
 # Only Qemu is supported on virtual testing environment
 nova::compute::libvirt::libvirt_virt_type: qemu
 
-rjil::system::accounts::active_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,ahmad,vaidy,rohit,amar,abhishekl,mayankkapoor,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash,rakesh,manasi,bafna,anant,rahul,devendermishra,baljit,dpak]
+rjil::system::accounts::active_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,ahmad,vaidy,rohit,amar,abhishekl,mayankkapoor,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash,rakesh,manasi,bafna,anant,rahul,devendermishra,baljit,dpak,bhavin]
 rjil::system::accounts::sudo_users:
   admin:
-    users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,ahmad,vaidy,rohit,amar,abhishekl,mayankkapoor,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash,rakesh,manasi,bafna,anant,rahul,devendermishra,baljit,dpak]
+    users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,ahmad,vaidy,rohit,amar,abhishekl,mayankkapoor,anshup,varunarya,prashant,punituee,saju,ajayaa,swami,karansa,abhidixit,shashankchakelam,vpramo,atmesh.mishra,rushiagr,sudoku,sachit,harshalgupta,viveksharma,yatinkumbhare,naveenreddy,akash,rakesh,manasi,bafna,anant,rahul,devendermishra,baljit,dpak,bhavin]
 
 rjil::base::self_signed_cert: true
 

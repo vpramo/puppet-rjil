@@ -201,4 +201,10 @@ node /^httpproxy\d+/ {
     ensure  => present,
     content => 'server=8.8.8.8',
   }
+  include rjil::jiocloud::vagrant::dhcp
+}
+
+node /^vagrant\d+/ {
+  include rjil::base
+  include rjil::base::jiocloud::vagrant
 }

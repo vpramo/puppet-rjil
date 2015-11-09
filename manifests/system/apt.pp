@@ -6,10 +6,14 @@
 #   [override_repo] specifies the location to an optional override_repo that should be previously set up on disk.
 #     This is intended to be used for cases where you may want to modify and create your own versions of packages
 #     for testing. Defaults to the value of the override_repos fact.
+#
+#   [env_repositories] Apt repositories which is required per environment , like AT, prod, staging etc.
+#
 class rjil::system::apt (
   $enable_puppetlabs = true,
   $proxy             = false,
   $repositories      = {},
+  $env_repositories  = {},
   $override_repo     = $::override_repo,
 ) {
 
@@ -73,4 +77,5 @@ class rjil::system::apt (
     }
   }
   create_resources(apt::source, $repositories, {'tag' => 'package'} )
+  create_resources(apt::source, $env_repositories, {'tag' => 'package'} )
 }

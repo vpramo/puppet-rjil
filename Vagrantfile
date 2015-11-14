@@ -62,6 +62,9 @@ Vagrant.configure("2") do |config|
       # it gets the IP from DHCP server on HTTPPROXY vm
       config.vm.provision 'shell', :inline =>
       'ifdown eth1;ifup eth1'
+     # This is required because otherwise hiera files will not be referenced at all
+      config.vm.provision 'shell', :inline =>
+      'cp /etc/puppet/hiera/hiera.yaml /etc/puppet/'
 
       config.vm.host_name = "#{node_name}.domain.name"
       ['consul'].each do |x|

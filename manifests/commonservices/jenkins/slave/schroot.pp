@@ -1,6 +1,4 @@
-define rjil::jiocloud::jenkins::slave::schroot (
-  $user = 'ubuntu'
-) {
+define rjil::commonservices::jenkins::slave::schroot ($user = 'ubuntu') {
   $release = $name
 
   exec { "mk-sbuild-${release}":

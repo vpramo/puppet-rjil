@@ -16,7 +16,10 @@ nova::compute::libvirt::libvirt_virt_type: qemu
 # more appropriate value.
 rjil::jiocloud::consul::service::interval: 120s
 
+contrail::vrouter::vrouter_physical_interface: eth1
+
 rjil::system::accounts::active_users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,amar,abhishekl,anshup,varunarya,prashant,punituee]
+
 rjil::system::accounts::sudo_users:
   admin:
     users: [soren,bodepd,hkumar,jenkins,consul,pandeyop,jaspreet,vivek,ahmad,vaidy,himanshu,rohit,amar,abhishekl,anshup,varunarya,prashant,punituee]
@@ -38,6 +41,9 @@ ceph::conf::mon_timecheck_interval: 30
 #                   moment) from when the package got created to reach here.
 ##
 rustedhalo_apt_repo_release: 'trusty-testing'
+
+
+rjil::jiocloud::consul::encrypt: "%{consul_gossip_encrypt}"
 
 ##
 # Running the system behind proxy need certain extra entries to be added
@@ -100,7 +106,7 @@ tempest::admin_username: tempest_admin
 
 rjil::neutron::contrail::fip_pools:
   public:
-    network_name: public_net
+    network_name: public
     subnet_name: public_subnet
     cidr: 100.1.0.0/24
     subnet_ip_start: 100.1.0.11
@@ -111,4 +117,18 @@ rjil::neutron::contrail::fip_pools:
     subnet_name: private_shared_subnet
     cidr: 99.0.0.0/24
     public: false
-    tenants: ['tempest','testtenant']
+    tenants: ['tempest']
+
+contrail::vrouter::vgw_subnets: ['100.1.0.0/24']
+rjil::system::apt::env_repositories:
+  contrailv2:
+    location: 'http://jiocloud.rustedhalo.com/contrailv2'
+    release: 'trusty'
+    repos: 'main'
+    include_src: false
+
+ntp::servers:
+  - 10.140.221.235
+  - 10.140.221.232
+  - 10.140.221.236
+

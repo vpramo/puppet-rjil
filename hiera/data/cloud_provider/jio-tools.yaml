@@ -1,0 +1,23 @@
+rjil::system::apt::proxy: "http://10.140.218.59:3128/"
+rjil::system::ntp::run_ntpdate: false
+ntp::servers:
+  - 10.140.221.235
+  - 10.140.221.232
+
+
+rjil::system::proxies:
+  "no":
+    url: "127.0.0.1,localhost,consul,jiocloud.com,jiocloudservices.com"
+  http:
+    url: "http://10.140.218.59:3128/"
+  https:
+    url: "http://10.140.218.59:3128/"
+
+rjil::system::accounts::active_users: [consul,anshup,amar,vpramo,akash,soren,bodepd,mayankkapoor]
+rjil::system::accounts::sudo_users:
+  admin:
+    users: [consul,anshup,amar,vpramo,akash,soren,bodepd,mayankkapoor]
+
+rjil::base::self_signed_cert: true
+
+rjil::jiocloud::consul::encrypt: "%{consul_gossip_encrypt}"

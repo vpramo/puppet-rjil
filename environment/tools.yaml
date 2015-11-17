@@ -1,0 +1,8 @@
+resources:
+  tools:
+    number: 1
+    flavor: large 
+    image: trusty
+    networks: default
+    boot_volume: default_volume
+    assign_floating_ip: true

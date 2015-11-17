@@ -41,8 +41,12 @@ if [ $rv -eq 0 ]
 then
        pending_version=$(python -m jiocloud.orchestrate current_version)
        echo current_version=$pending_version > /etc/facter/facts.d/current_version.txt
-
        # Update apt sources to point to new snapshot version
+       env=$(cat /etc/facter/facts.d/env.txt | cut -d"=" -f2)
+       wget http://10.140.221.229/$env/stable_repo.yaml -O /etc/puppet/hiera/data/repo.yaml
+       if [ -d "/etc/puppet/hiera.overrides"];then
+         cp /etc/puppet/hiera/data/repo.yaml /etc/puppet/hiera.overrides/data/repo.yaml
+       fi
        (echo 'File<| title == "/etc/consul" |> { purge => false }'; echo 'File<| title == "sources.list.d" |> { purge => false }'; echo 'include rjil::system::apt' ) | puppet apply --logdest=syslog --config_version='python -m jiocloud.orchestrate current_version'
 
        apt-get update

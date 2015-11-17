@@ -215,3 +215,12 @@ mod 'unibet/vagrant',
 mod 'danzilio/danzilio-virtualbox',
   :git => "#{base_url}/danzilio/danzilio-virtualbox",
   :ref => 'origin/master'
+
+mod 'hexmode/mediawiki',
+  :git => "#{base_url}/jiocloud/puppet-mediawiki",
+  :ref => 'master'
+
+mod 'fnerdwq/omd',
+  :git => "#{base_url}/jiocloud/puppet-omd",
+  :ref => 'master'
+
